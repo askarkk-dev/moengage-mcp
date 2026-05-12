@@ -574,5 +574,6 @@ async def whats_working(
 
 # ── Entry point ──────────────────────────────────────────────────────────────
 if __name__ == "__main__":
-    # SSE transport for remote hosting (Claude.ai connector)
-    mcp.run(transport="sse")
+    # Railway injects PORT env var — must bind to 0.0.0.0:PORT
+    port = int(os.environ.get("PORT", 8000))
+    mcp.run(transport="sse", host="0.0.0.0", port=port)
