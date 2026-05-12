@@ -574,6 +574,7 @@ async def whats_working(
 
 # ── Entry point ──────────────────────────────────────────────────────────────
 if __name__ == "__main__":
-    # Railway injects PORT env var — must bind to 0.0.0.0:PORT
+    import uvicorn
     port = int(os.environ.get("PORT", 8000))
-    mcp.run(transport="sse", host="0.0.0.0", port=port)
+    app = mcp.get_asgi_app()
+    uvicorn.run(app, host="0.0.0.0", port=port)
